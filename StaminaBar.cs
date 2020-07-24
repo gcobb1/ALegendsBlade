@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+//Changes stamina UI
 public class StaminaBar : MonoBehaviour
 {
 

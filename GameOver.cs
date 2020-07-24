@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
-    //static public string Username;
+
     static public int Rounder = 10;
     static public int Killser = 10;
     static public bool LegendQuery = false;
@@ -14,7 +14,7 @@ public class GameOver : MonoBehaviour
     static public float MotionBlur;
     static public bool MotionSet = false;
 
-
+	//Used to transfer score to leaderboard by storing static variables and to show player results
     public void GameOverMan(int Round, int Kills, bool LegendQ, bool GameOverQQ) {
         Rounder = Round;
         Killser = Kills;

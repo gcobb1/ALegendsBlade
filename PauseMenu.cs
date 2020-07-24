@@ -10,9 +10,9 @@ public class PauseMenuScript : MonoBehaviour
     
     public PlayerScript PlayerScript;
 
-    // Update is called once per frame
-    void Update()
-    {
+    	//Pause at tab and unpause if tabbed already
+	void Update()
+    	{
         if (Input.GetKeyDown(KeyCode.Tab))
          {
             if (PlayerScript.GameOverQ == false)
@@ -30,7 +30,7 @@ public class PauseMenuScript : MonoBehaviour
             }
         }
     }
-    
+   //Reveal Ui on Pause and disable on resume. Resume functionality 
     public void Resume()
     {
         //pauseMenuUI.SetActive(false);
@@ -47,6 +47,7 @@ public class PauseMenuScript : MonoBehaviour
             Time.timeScale = 0f;
             GameIsPaused = true;
     }
+	//Go to Main Menu
     public void QuitGamer()
     {
         
@@ -55,6 +56,8 @@ public class PauseMenuScript : MonoBehaviour
         PlayerScript.GameOver();
         pauseMenuUI.SetActive(false);
     }
+
+	//Show interactive control text
     public void ControlsMove()
     {
         PlayerScript.ControlsText.fontSize = 10;

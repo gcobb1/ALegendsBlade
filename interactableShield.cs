@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Please see InteractableHealth.cs for comments
 public class InteractableShield : Interactable
     
 {

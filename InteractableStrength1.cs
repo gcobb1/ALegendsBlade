@@ -10,19 +10,21 @@ public class InteractableStrength1 : Interactable
     {
         Price = 3000;
         posTrans = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-        //posTrans = PScript.Transform;
     }
-    void FixedUpdate()
-    {
-        Interactability();
-    }
-    // Start is called before the first frame update
+    	//Check if you are able to interact to show helper screen
+	void FixedUpdate()
+    	{
+        	Interactability();
+    	}
+
+	//Interact when you press E. Decrease Score by dynamically set price that correlates to amount of item bought
     public override void Interact()
     {
         if (PScript.Score >= Price)
         {
             Debug.Log("Score Decrease 3000");
             PScript.DecreaseScore(Price);
+	    //Increase Attributes
             CScript.Strength += 30;
             CScript.StrengthNumber.text = CScript.Strength.ToString();
             if (CScript.NewSpeed < 10)
@@ -35,6 +37,7 @@ public class InteractableStrength1 : Interactable
                 CScript.SpeedNumber.text = CScript.RunSpeed.ToString();
                 
             }
+		//Change Swords to reflect current sword.
             if(PScript.OnSword == PScript.BladeofLight)
             {
                 PScript.BladeofLight.SetActive(false);
@@ -69,6 +72,7 @@ public class InteractableStrength1 : Interactable
 
         }
     }
+	//If within a certain distance then allow interaction and show helper
     public override void Interactability()
     {
         Distancer = Vector3.Distance(posTrans, Player1.transform.position);

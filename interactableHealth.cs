@@ -19,6 +19,7 @@ public class InteractableHealth : Interactable
     // Start is called before the first frame update
     public override void Interact()
     {
+	//Price is dynamic correlatng to amount of iitems bought.
         if (PScript.Score >= Price)
         {
             PScript.DecreaseScore(Price);
@@ -28,6 +29,7 @@ public class InteractableHealth : Interactable
             PScript.HealthIText.text = PScript.HealthInv.ToString();
         }
     }
+	//Interactions may occur within a certain distance
     public override void Interactability()
     {
         Distancer = Vector3.Distance(posTrans, Player1.transform.position);

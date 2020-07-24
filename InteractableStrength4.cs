@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//See interactableStrength1 for comments
 public class InteractableStrength4 : Interactable
 
 {
@@ -10,13 +10,11 @@ public class InteractableStrength4 : Interactable
     {
         Price = 50000;
         posTrans = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-        //posTrans = PScript.Transform;
     }
     void FixedUpdate()
     {
         Interactability();
     }
-    // Start is called before the first frame update
     public override void Interact()
     {
         if (PScript.Score >= Price)

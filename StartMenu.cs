@@ -8,7 +8,6 @@ using TMPro;
 public class StartMenu : MonoBehaviour
 {
     public HighScores HighS;
-    //public UsernameScript UsernameSc;
     public Text RoundText;
     public Text KillsText;
     public Text LegendText;
@@ -21,9 +20,9 @@ public class StartMenu : MonoBehaviour
     string kills;
     string round;
     string legend;
-    //public float canDestroy = 2f;
-    //public bool Chekced;
     [System.Obsolete]
+
+	//Show the correct Screen based on static Variables considering if a prior game was just played
     void Start()
     {
         kills = GameOver.Killser.ToString();
@@ -60,6 +59,7 @@ public class StartMenu : MonoBehaviour
         }
     }
 
+	//Game Played on button unless username undefined
     public void PlayGame()
     {
         if (UsernameScript.HasSubmitted == true)
@@ -74,6 +74,7 @@ public class StartMenu : MonoBehaviour
             submitHelper.SetActive(true);
         }
     }
+	//Exit screen that displays score to main menu
     public void ExitGameOverScreen()//also exits leaderboard
     {
         GameOverScener.SetActive(false);
@@ -81,6 +82,7 @@ public class StartMenu : MonoBehaviour
         leaderScener.SetActive(false);
         OptionScener.SetActive(false);
     }
+	//Leaderboard Screen
     public void EnterLeaderBoardScreen()
     {
         HighS.DownloadHighscores();
@@ -97,6 +99,7 @@ public class StartMenu : MonoBehaviour
         OptionScener.SetActive(true);
 
     }
+	//Quit app
     public void QuitApp()
     {
         Application.Quit();

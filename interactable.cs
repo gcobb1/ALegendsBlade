@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//Abstract Class that defines the interaction between all objects
 public class Interactable : MonoBehaviour
 {
     public PlayerScript PScript;

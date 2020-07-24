@@ -8,7 +8,6 @@ public class HighScores : MonoBehaviour
     const string privateCode = "uNkaz8kgFUSq8kUyQgcprgtq4pO7KpvU-Ft3ccO6rSyw";
     const string publicCode = "5f1358beeb36cd09c447757c";
     const string webURL = "http://dreamlo.com/lb/";
-    //public Highscore[] highscoresList;
     public Text Player1Name;
     public Text Player1Round;
     public Text Player2Name;
@@ -19,27 +18,8 @@ public class HighScores : MonoBehaviour
     public Text Player4Round;
     public Text Player5Name;
     public Text Player5Round;
-    //public Text[] textList;
-
-
-    //[System.Obsolete]
-    //void Awake()
-    //{
-        //AddNewHighscore("Sebastian", 1);
-        //AddNewHighscore("Fred", 3);
-        //AddNewHighscore("Theresa", 2);
-        //AddNewHighscore("Bernard", 2);
-        //AddNewHighscore("Travis", 5);
-
-        //DownloadHighscores(); //Use this when leaderboard is opened
-
-
-   // }
-    //void Start()
-    //{
-        //DownloadHighscores(); //Use this when leaderboard is opened
-    //}
     [System.Obsolete]
+	//Add Scores to Server Using Dreamlo Architecture
     public void AddNewHighscore(string username, int score)
     {
         StartCoroutine(UploadNewHighscore(username, score));
@@ -75,18 +55,16 @@ public class HighScores : MonoBehaviour
         }
     }
 
+
+	//Format only the first 5 scores in the leaderboard by storing each aspect in an array, then displaying the results with a TMP
     void FormatHighScores(string textStream)
     {
         string[] entries = textStream.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
-        //highscoresList = new Highscore[entries.Length];
-        //highscoresList = new Highscore[5];
-
         for (int i = 0; i < 5; i++)
         {
             string[] entryInfo = entries[i].Split(new char[] { '|' });
             string username = entryInfo[0];
             int score = int.Parse(entryInfo[1]);
-            //highscoresList[i] = new Highscore(username, score);
             switch (i % 5)
             {
                 case 0:
@@ -110,23 +88,10 @@ public class HighScores : MonoBehaviour
                     Player5Round.text = score.ToString();
                     break;
                 default:
-                    //Console.WriteLine("Default case");
                     break;
             }
 
-            //print(highscoresList[i].username + ": " + highscoresList[i].score);
         }
     }
-   /* public struct Highscore
-    {
-        public string username;
-        public int score;
-        public Highscore(string _userName, int _score)
-        {
-            username = _userName;
-            score = _score;
-        }
-    }
-   */
 }
 

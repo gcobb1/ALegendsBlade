@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Manages Enemy Spawn, OnKill Update, Destroy, and other
 public class EnemyManager : MonoBehaviour
 {
     public delegate void EventType();
@@ -22,28 +22,23 @@ public class EnemyManager : MonoBehaviour
     {
         SpawnNewEnemy();
     }
-
+	//listen for enemy killed and then call spawn new
     public void OnEnable()
     {
         EnemyScript.OnEnemyKilled += SpawnNewEnemy;
 
 
     }
+	//kill listener
     void OnDestroy()
     {
         EnemyScript.OnEnemyKilled -= SpawnNewEnemy;
     }
-    // Update is called once per frame
+	//Creates instances for the enemyscript by object per enemy	
     public void SpawnNewEnemy()
     {
-
         GameObject obj = (GameObject)Instantiate(m_EnemyPrefab, m_SpawnPoint.transform.position, Quaternion.identity);
-        //  obj.GetComponent<EnemyScript>().HealthBarS = GetComponent<HealthBar>();
-        // obj.GetComponent<EnemyScript>().PlayerS = GetComponent<PlayerScript>();
-        //PlayerMan = obj.GetComponent<EnemyScript>().PlayerS;
-
         obj.GetComponent<EnemyScript>().PlayerMain = GameObject.FindWithTag("Player");
-        //obj.GetComponent<EnemyScript>().PlayerMain.GetComponent<ControllerScript>().Enemy = obj.GetComponent<EnemyScript>();
         MainCh.GetComponent<ControllerScript>().Enemy = obj.GetComponent<EnemyScript>();
         obj.GetComponent<EnemyScript>().HealthBarObj = GameObject.FindWithTag("health");
         obj.GetComponent<EnemyScript>().HealthBarS = obj.GetComponent<EnemyScript>().HealthBarObj.GetComponent<HealthBar>();

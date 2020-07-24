@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+
+
+//This Script simply validates the Chars for the Username to between 1-15 in length and only to carry alphanumerics!
 public class UsernameScript : MonoBehaviour
 {
     static public string Username;

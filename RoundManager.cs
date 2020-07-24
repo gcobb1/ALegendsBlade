@@ -15,7 +15,7 @@ public class RoundManager : MonoBehaviour
         PlayerScr.killCounterThreshold = PlayerScr.killCounterThreshold + (5 * PlayerScr.Round);
     }
 
-    
+	//Gives score based on killed enemy    
     public void KilledEnemy()
     {
         PlayerScr.Kills++;
@@ -23,6 +23,7 @@ public class RoundManager : MonoBehaviour
         PlayerScr.ScoreText.text = PlayerScr.Score.ToString();
         CheckRound();
     }
+	//When an enemy is killed, check the round threshold algorithm to see if the next round should display along with sounds and correlations
     public void CheckRound()
     {
         if ((PlayerScr.Kills % PlayerScr.killCounterThreshold) == 0)

@@ -16,7 +16,6 @@ public class SliderMouse : MonoBehaviour
         if(GameOver.MouseSet == true)
         {
             sliderMouse.value = GameOver.MouseSens;
-            //GameOver.MouseSens = 
         }
         else
         {
@@ -25,7 +24,6 @@ public class SliderMouse : MonoBehaviour
         if (GameOver.MotionSet == true)
         {
             sliderMotion.value = GameOver.MotionBlur;
-            //GameOver.MouseSens = 
         }
         else
         {
@@ -33,16 +31,21 @@ public class SliderMouse : MonoBehaviour
         }
 
     }
+	//Set mouse sens and change it by storing static variable
     public void SetMouse(float mouseSenser)
     {
         GameOver.MouseSet = true;
         GameOver.MouseSens = mouseSenser;
     }
+
+	//Set motion Blur and change it by storing static variable
     public void SetMotion(float motionSenser)
     {
         GameOver.MotionSet = true;
         GameOver.MotionBlur = motionSenser;
     }
+
+	//Set Window Mode and full
     public void ToggleChange(bool Windowmoder)
     {
         if (Windowmoder == true)

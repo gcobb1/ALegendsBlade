@@ -10,9 +10,6 @@ public class EnemyScript : MonoBehaviour
     float x;
     float y;
     float z;
-
-
-
     private NavMeshAgent enemyNav;
     public PlayerScript PlayerS;
     public HealthBar HealthBarS;
@@ -22,7 +19,6 @@ public class EnemyScript : MonoBehaviour
     public AudioSource EnemyAudioAttack;
     public AudioSource EnemyAudioDeath;
     public GameObject DeathGlow;
-
     public GameObject AudioEn;
     public GameObject AudioEn2;
     public float health;
@@ -43,17 +39,13 @@ public class EnemyScript : MonoBehaviour
     private float _time = 1f;
     private bool _canAttack = false;
     private float _timerToSpawn = 0f; //Random Timer.
-
     private bool _canSpawn = true;
-
-
     public delegate void EnemyKilled();
     public static event EnemyKilled OnEnemyKilled;
     public RoundManager RoundMan;
     public GameObject RoundManObj;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         enemyNav = GetComponent<NavMeshAgent>();
@@ -61,22 +53,11 @@ public class EnemyScript : MonoBehaviour
         pos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         y = transform.position.y;
         z = transform.position.z;
-        //Instantiate(EnemyS, pos, transform.rotation);
-        //killCounterThreshold = killCounterThreshold + (5 * PlayerS.Round);
-        //   dirToPlayer = transform.position - PlayerMain.transform.position;
-        //   newPos = transform.position - dirToPlayer;
-        //   enemyNav.SetDestination(newPos);
-        //PlayerMain = GameObject.FindWithTag("Player");
-        //HealthBarS = GetComponent<HealthBar>();
-        //PlayerS = GetComponent<PlayerScript>();
-
-        //HealthBarS = GameObject.FindWithTag("HB");
-        //PlayerS = GameObject.FindWithTag("Player");
-
-
+    
     }
     void Update()
     {
+	//Check exact diistance collisiion with player
         Distancer = Vector3.Distance(transform.position, PlayerMain.transform.position);
         if (Distancer > 1.5f)
         {
@@ -88,6 +69,8 @@ public class EnemyScript : MonoBehaviour
         {
             enemyNav.ResetPath();
         }
+	//Keep .5 second charge rate for enemy so that it does always immediately attack
+	//Attack if withn distance
         if(Distancer < 2f)
         {
             if (_canAttack == true)
@@ -102,11 +85,10 @@ public class EnemyScript : MonoBehaviour
                     if (PlayerS.Health <= 0)
                     {
                         PlayerS.GameOver();
-                        
-                        //Destroy(PlayerMain, 3f);
-                        //Debug.Log("Destroying GameObject in 3...2...1");
+                        //If player dies from enemy GameOver Occurs
                     }
                 }
+		//Proper Damage subtraction  by enemy
                 else if ((14 >= PlayerS.Shield) && (PlayerS.Shield > 0))
                 {
                     SplitDamage = 14 - PlayerS.Shield;
@@ -135,12 +117,14 @@ public class EnemyScript : MonoBehaviour
 
         }
     }
+	//Enemy takes damage based on sword strength
     public void TakeDamage(int Strength)
     {
         health = health - Strength;
         PlayerS.IncreaseScore(10);
         PlayerS.ScoreText.text = PlayerS.Score.ToString();
     }
+	//when health goes below a limit check for death and trigger events correlating
     public void CheckDeath()
     {
         if(health <= 0)
@@ -170,12 +154,7 @@ public class EnemyScript : MonoBehaviour
                 }
                 RoundMan.KilledEnemy();
                 RoundMan.CheckRound();
-                //newEnemy = (GameObject)Instantiate(EnemyS, pos, transform.rotation);
-                //newEnemy.name = "Enemy"; 
             }
-            //PlayerS.Kills++
         }
     }
-    
-
 }
