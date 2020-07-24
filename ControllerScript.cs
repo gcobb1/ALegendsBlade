@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+
+//Class Used to manipulate player movement and button controls
 public class ControllerScript : MonoBehaviour
 {
     public CharacterController controller;
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
-    //public LayerMask InteractableLayers;
-    //public InteractableShield interactableS;
     public EnemyScript Enemy;
     public PlayerScript Player;
     public Animator anim;
@@ -35,12 +36,11 @@ public class ControllerScript : MonoBehaviour
     public float timertoLand = 0f;
     public Text SpeedNumber;
     public Text StrengthNumber;
-
-
-
-
     Vector3 velocity;
     bool isGrounded;
+
+
+
     void Start()
     {
         Stamina = MaxStamina;
@@ -48,17 +48,15 @@ public class ControllerScript : MonoBehaviour
         anim = GetComponent<Animator>();
         SpeedNumber.text = RunSpeed.ToString();
         StrengthNumber.text = Strength.ToString();
-
-
-
-
     }
     void Update()
     {
+	//Runniing
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = RunSpeed;
         }
+	//Sneaking
         else if (Input.GetKey(KeyCode.C))
         {
             speed = 1f;
@@ -68,7 +66,7 @@ public class ControllerScript : MonoBehaviour
             speed = NewSpeed;
         }
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
+	//For Landing animation to resume
         if (timertoLand > -1)
         {
             timertoLand -= Time.deltaTime;
@@ -88,35 +86,22 @@ public class ControllerScript : MonoBehaviour
 
             }
         }
-        // {
-        // Debug.Log("Grounded");
-        //}
-        //else
-        //{
-        //  Debug.Log("Not Grounded");
-        // }
+	//velocity resets at grounded
         if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
-        //else if()
 
+	//Movement
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
         if(player.transform.position.y < -10)
         {
             Player.GameOver();
         }
-        /*
-        if (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0)
-        {
-            anim.SetInteger("condition", 1);
-        }
-        else
-        {
-            anim.SetInteger("condition", 0);
-        }
-        */
+       
+
+	//Player Attack 
         if (Input.GetMouseButtonDown(0))
         {
             if (Stamina > 10)
@@ -125,8 +110,7 @@ public class ControllerScript : MonoBehaviour
                 
                 anim.SetTrigger("Attack");
                 anim.SetInteger("condition", 0);
-
-
+		//Collision Check
                 Stamina = Stamina - 10;
                 StaminaBar.SetStamina(Stamina);
                 Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
@@ -135,13 +119,11 @@ public class ControllerScript : MonoBehaviour
                     enemy.GetComponent<EnemyScript>().TakeDamage(Strength);
                     enemy.GetComponent <EnemyScript>().CheckDeath();
                     Sword.Play();
-                    //Enemy = enemy;
-
                 }
             }
             
         }
-      
+     	//Configures correct animations based on direction of run in relation to the face of the mouse 
         if (transform.hasChanged)
         {
             Stamina = Stamina - (StaminaDec * Time.deltaTime);
@@ -241,31 +223,23 @@ public class ControllerScript : MonoBehaviour
             }
 
         }
-
+	//Move transform when greater than 0 stamina
         Vector3 move = transform.right * x + transform.forward * z;
         if (Stamina > 0f) { 
             controller.Move(move * speed * Time.deltaTime);
         }
-
+	//Jump when grounded
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             anim.SetTrigger("Jump");
             jumped = true;
-            //anim.SetInteger("condition", 0);
             Jump.Play();
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             timertoLand = .2f;
-            timertoLand -= Time.deltaTime;
-
-            
+            timertoLand -= Time.deltaTime; 
         }
-
+	//falling
         velocity.y += 3 * gravity * Time.deltaTime;
-        //if (Stamina > 0)
-        //{
-            controller.Move(velocity * Time.deltaTime);
-        
-        // }
+            controller.Move(velocity * Time.deltaTime); 
     }
- 
 }
